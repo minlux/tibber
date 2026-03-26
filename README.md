@@ -41,6 +41,28 @@ The tool will decode the SML data and output it as JSON (which can be further pr
 ./read.sh
 ```
 
+## Output Format
+
+The tool outputs a JSON object with the following fields:
+
+```json
+{"energy":34201385,"meter":"ESY","power":102,"serial":"113440394"}
+```
+
+| Field | Description |
+|-------|-------------|
+| `energy` | Total energy consumption in Wh |
+| `meter` | Meter manufacturer identifier |
+| `power` | Current power consumption in W |
+| `serial` | Meter serial number |
+
+
+## Shelly Pro 3EM Emulator
+
+`shelly_emulator.py` emulates a Shelly Pro 3EM energy meter over UDP, using live data from the TibberBridge as source. This allows devices that poll Shelly meters (e.g. home batteries like the Marstek/DEYE B2500) to receive real power data without additional hardware.
+
+See [shelly_emulator.md](shelly_emulator.md) for full documentation.
+
 
 # Further Resources
 

@@ -16,11 +16,11 @@
    to pipe input and output data
 
    ```
-   curl -s http://admin:WEBSRVPWD@192.168.178.27/data.json?node_id=1 | ./sml/build/sml
+   curl -s http://admin:C0P5-B8D2@192.168.178.27/data.json?node_id=1 | ./sml/build/sml
    ```
 
    ```
-   curl -s http://admin:WEBSRVPWD@192.168.178.27/data.json?node_id=1 | ./sml/build/sml | curl -H 'Content-Type: application-json' -X POST --data @- http://localhost:8080/smarty/b25
+   curl -s http://admin:C0P5-B8D2@192.168.178.27/data.json?node_id=1 | ./sml/build/sml | curl -H 'Content-Type: application-json' -X POST --data @- http://localhost:8080/smarty/b25
    ```
 */
 //---------------------------------------------------------------------------------------------------------------------
