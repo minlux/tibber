@@ -1,25 +1,22 @@
 # TibberBridge SML Reader
 
-This tools are used to read out data of your enery meter via TibberBridge.
+A set of tools to read live energy data from your electricity meter via TibberBridge.
 
-Todays energy meter output their data via an IR interface, using SML protocol.
-To read that data you can use an IR read and use that data for your smart home etc.
+Modern electricity meters expose their data through an infrared interface using the SML protocol.
+If you are a [Tibber](https://tibber.com/de) customer, you may already have a *Tibber Pulse* clipped
+to that IR port — it reads the meter data and forwards it to *TibberBridge*, which sends it to Tibber
+over the internet.
 
-However, if you are using [tibber](https://tibber.com/de) the iterface may be occupied
-by *Tibber Pulse* (that reads the data and forwards it to *TibberBridge*, to be sent to *tibber* through the internet).
-
-Luckily, you can enable an embedded webserver in the *TibberBridge* to get the SML data.
-How to do that, is described [here](https://the78mole.de/doing-the-undone-decoding-sml-or-hacking-the-tibber-raw-data/).
-While doing so, note:
-- the IP address of *TibberBridge*
+Fortunately, *TibberBridge* has an embedded webserver that can serve the raw SML data locally.
+How to enable it is described [here](https://the78mole.de/doing-the-undone-decoding-sml-or-hacking-the-tibber-raw-data/).
+You will need:
+- the IP address of your *TibberBridge*
 - the webserver username and password
 
-No you are ready to use my tool :-)
 
+## Build the SML Tool
 
-## Build SML Tool
-
-```
+```bash
 cd sml
 mkdir build
 cd build
@@ -27,26 +24,32 @@ cmake ..
 make
 ```
 
-## Configure Read Script
 
-In `read.sh`, adapt the command with the correct IP address, username and password.
+## Configure the Read Script
+
+Edit `read.sh` and set the correct IP address, username, and password for your TibberBridge.
 
 
 ## Retrieve Data
 
-To retriev the current SML data of your energy meter from *TibberBridge* and pipe it into the *sml* tool.
-The tool will decode the SML data and output it as JSON (which can be further processed according your demand).
+Fetch the current SML data from *TibberBridge* and decode it to JSON:
 
-```
+```bash
 ./read.sh
 ```
+
 
 ## Output Format
 
 The tool outputs a JSON object with the following fields:
 
 ```json
-{"energy":34201385,"meter":"ESY","power":102,"serial":"113440394"}
+{
+  "energy": 34201385,
+  "meter":  "ESY",
+  "power":  102,
+  "serial": "113440394"
+}
 ```
 
 | Field | Description |
@@ -59,7 +62,9 @@ The tool outputs a JSON object with the following fields:
 
 ## Shelly Pro 3EM Emulator
 
-`shelly_emulator.py` emulates a Shelly Pro 3EM energy meter over UDP, using live data from the TibberBridge as source. This allows devices that poll Shelly meters (e.g. home batteries like the Marstek/DEYE B2500) to receive real power data without additional hardware.
+`shelly_emulator.py` makes your TibberBridge appear as a Shelly Pro 3EM energy meter on the local
+network. Devices that poll Shelly meters over UDP (e.g. Marstek/DEYE B2500 home batteries) can
+receive live power data without any additional hardware.
 
 See [shelly_emulator.md](shelly_emulator.md) for full documentation.
 
@@ -67,5 +72,3 @@ See [shelly_emulator.md](shelly_emulator.md) for full documentation.
 # Further Resources
 
 - github.com/marq24/ha-tibber-pulse-local
-
-
