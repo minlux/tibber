@@ -97,7 +97,7 @@ int main(int argc, char * argv[])
       if (inFilename) fclose(f); //close only regular files, not stdin
 
       //process data
-      sml.push(buffer, count);
+      if (count > 0) sml.push(buffer, (uint32_t)count);
    }
 
 

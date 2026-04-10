@@ -34,7 +34,7 @@ SmlParser::SmlParser()
 
 void SmlParser::crc16(uint8_t byte)
 {
-   crc_calc_crc16(crc, &byte, 1);
+   crc = crc_calc_crc16(crc, &byte, 1);
 }
 
 
@@ -317,7 +317,7 @@ const char * SmlParser::getManufacturer(char *buffer, unsigned int size)
          /* get manufacturer at position 6 in list */
          len = (len > size - 1) ? size : len;
          memcpy(buffer, &listBuffer[i + 1], len);
-         buffer[len + 1] = 0; //zero termination
+         buffer[len] = 0; //zero termination
          return buffer;
       }
       i += len + 1;
